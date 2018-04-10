@@ -3,11 +3,11 @@
     <v-layout row wrap>
       <v-flex d-flex xs12 sm6 md2>
         <SicRoles v-if="canvas.type==='standard'" :roles="canvas.roles"/>
-        <SicCustomerVision v-if="canvas.type==='outcome' :customerVision="canvas.customerVision"/>
+        <SicCustomerVision v-if="canvas.type==='outcome'" :customerVision="canvas.customerVision"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
         <SicJobs v-if="canvas.type==='standard'" :jobs="canvas.jobs"/>
-        <SicExpectedOutcome v-if="canvas.type==='outcome' :expectedOutcome="canvas.expectedOutcome"/>
+        <SicExpectedOutcome v-if="canvas.type==='outcome'" :expectedOutcome="canvas.expectedOutcome"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
         <v-layout row wrap>
