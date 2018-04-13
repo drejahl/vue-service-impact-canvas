@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md>
     <v-layout row wrap>
       <v-flex d-flex xs12 sm6 md2>
-        <SicRoles v-if="canvas.type==='standard'" :roles="canvas.roles"/>
+        <SicRoles v-if="canvas.type==='standard'" :roles="canvas.roles" :businessModel="businessModel"/>
         <SicCustomerVision v-if="canvas.type==='outcome'" :customerVision="canvas.customerVision"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
@@ -59,7 +59,8 @@ export default {
     SicAmplifiers
   },
   props: {
-    'canvas': Object
+    'canvas': Object,
+    'businessModel': Object
   },
   data () {
     return {

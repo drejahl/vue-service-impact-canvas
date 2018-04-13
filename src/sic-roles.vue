@@ -38,10 +38,12 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md8>
                 <v-text-field label="Name" required v-model="role.name"></v-text-field>
+                <v-select :items="businessModel.customerSegments" v-model="role.customerSegmentRef"
+                  label="Customer Segment" item-text="name" item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select label="Type" multiple autocomplete chips v-model="role.type"
-                  :items="['Technology', 'Sales', 'Marketing', 'Operations', 'Strategic']">
+                  :items="['EndUser','Customer','BackOffice']">
                 </v-select>
               </v-flex>
               <v-flex xs12 sm12 md12>
@@ -68,13 +70,14 @@ export default {
   components: {
   },
   props: {
-    'roles': Array
+    'roles': Array,
+    'businessModel': Object
   },
   data () {
     return {
       dialog: false,
       editIdx: null,
-      role: {description:""}
+      role: {description:"", customerSegmentRef: ""}
     }
   },
   mounted: function() {

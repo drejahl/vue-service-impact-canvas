@@ -41,11 +41,14 @@
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select label="Type" multiple autocomplete chips v-model="job.type"
-                  :items="['Technology', 'Sales', 'Marketing', 'Operations', 'Strategic']">
+                  :items="['OneTime', 'Recurring']">
                 </v-select>
               </v-flex>
               <v-flex xs12 sm12 md12>
                 <v-text-field multi-line label="Description" v-model="job.description"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-text-field multi-line label="Success Criteria" v-model="job.successCriteria"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
