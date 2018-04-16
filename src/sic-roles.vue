@@ -38,7 +38,7 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md8>
                 <v-text-field label="Name" required v-model="role.name"></v-text-field>
-                <v-select :items="businessModel.customerSegments" v-model="role.customerSegmentRef"
+                <v-select v-if="businessModel" :items="businessModel.customerSegments" v-model="role.customerSegmentRef"
                   label="Customer Segment" item-text="name" item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm6>
