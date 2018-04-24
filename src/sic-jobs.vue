@@ -5,7 +5,7 @@
       <v-btn icon style="margin-left: 0px;" @click.native.stop="create">
         <v-icon>add</v-icon>
       </v-btn>
-      <v-toolbar-title style="margin-left: 0px;" class="body-1">Customer Jobs</v-toolbar-title>
+      <v-toolbar-title style="margin-left: 0px;" class="body-1">Jobs</v-toolbar-title>
     </v-toolbar>
     <v-container fluid style="min-height: 0;" grid-list-lg>
       <v-layout row wrap>
@@ -38,9 +38,11 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md8>
                 <v-text-field label="Name" required v-model="job.name"></v-text-field>
+                <v-select :items="serviceImpactCanvas.roles" v-model="job.roleRef"
+                  label="Roles" item-text="name" multiple chips item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm6>
-                <v-select label="Type" multiple autocomplete chips v-model="job.type"
+                <v-select label="Type" multiple autocomplete v-model="job.type"
                   :items="['OneTime', 'Recurring']">
                 </v-select>
               </v-flex>
@@ -71,7 +73,8 @@ export default {
   components: {
   },
   props: {
-    'jobs': Array
+    'jobs': Array,
+    'serviceImpactCanvas': Object
   },
   data () {
     return {

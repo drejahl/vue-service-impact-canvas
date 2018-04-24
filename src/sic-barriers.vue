@@ -38,10 +38,12 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md8>
                 <v-text-field label="Name" required v-model="barrier.name"></v-text-field>
+                <v-select :items="serviceImpactCanvas.jobs" v-model="barrier.jobRef"
+                  label="Affected Jobs" item-text="name" multiple chips item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select label="Type" multiple autocomplete chips v-model="barrier.type"
-                  :items="['Technology', 'Sales', 'Marketing', 'Operations', 'Strategic']">
+                  :items="['Technology', 'Business Process', 'Legislation', 'Regulatory']">
                 </v-select>
               </v-flex>
               <v-flex xs12 sm12 md12>
@@ -68,13 +70,14 @@ export default {
   components: {
   },
   props: {
-    'barriers': Array
+    'barriers': Array,
+    'serviceImpactCanvas': Object
   },
   data () {
     return {
       dialog: false,
       editIdx: null,
-      barrier: {description:""}
+      barrier: {description:"", jobRef: [], type: []}
     }
   },
   mounted: function() {
@@ -87,7 +90,7 @@ export default {
       this.dialog=false;
     },
     create: function() {
-      this.barrier = {};
+      this.barrier = {description:"", jobRef: [], type: []};
       this.dialog=true;
     },
     edit: function(i) {

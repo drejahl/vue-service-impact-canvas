@@ -6,7 +6,7 @@
         <SicCustomerVision v-if="canvas.type==='outcome'" :customerVision="canvas.customerVision"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
-        <SicJobs v-if="canvas.type==='standard'" :jobs="canvas.jobs"/>
+        <SicJobs v-if="canvas.type==='standard'" :jobs="canvas.jobs" :serviceImpactCanvas="canvas"/>
         <SicExpectedOutcome v-if="canvas.type==='outcome'" :expectedOutcome="canvas.expectedOutcome"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
@@ -14,7 +14,7 @@
           <v-flex d-flex>
             <v-layout row wrap>
               <v-flex d-flex xs12>
-                <SicBarriers :barriers="canvas.barriers"/>
+                <SicBarriers :barriers="canvas.barriers" :serviceImpactCanvas="canvas"/>
               </v-flex>
               <v-flex d-flex xs12>
                 <SicAmplifiers v-if="canvas.type==='standard'" :amplifiers="canvas.amplifiers"/>
