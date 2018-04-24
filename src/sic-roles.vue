@@ -5,7 +5,7 @@
       <v-btn icon style="margin-left: 0px;" @click.native.stop="create">
         <v-icon>add</v-icon>
       </v-btn>
-      <v-toolbar-title style="margin-left: 0px;" class="body-1">User Roles</v-toolbar-title>
+      <v-toolbar-title style="margin-left: 0px;" class="body-1">Roles</v-toolbar-title>
     </v-toolbar>
     <v-container fluid style="min-height: 0;" grid-list-lg>
       <v-layout row wrap>
@@ -38,13 +38,13 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md8>
                 <v-text-field label="Name" required v-model="role.name"></v-text-field>
-                <v-select v-if="businessModel" :items="businessModel.customerSegments" v-model="role.customerSegmentRef"
-                  label="Customer Segment" item-text="name" item-value="id"></v-select>
-              </v-flex>
-              <v-flex xs12 sm6>
-                <v-select label="Type" multiple autocomplete chips v-model="role.type"
-                  :items="['EndUser','Customer','BackOffice']">
+                <v-select label="Stakeholder Type" autocomplete v-model="role.type"
+                  :items="['Customer','Partner','Internal']">
                 </v-select>
+                <v-select v-if="businessModel && role.type==='Customer'" :items="businessModel.customerSegments" v-model="role.customerSegmentRef"
+                  label="Customer Segment" item-text="name" item-value="id"></v-select>
+                  <v-select v-if="businessModel && role.type==='Partner'" :items="businessModel.keyPartners" v-model="role.keyPartnerRef"
+                    label="Key Partner" item-text="name" item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm12 md12>
                 <v-text-field multi-line label="Description" v-model="role.description"></v-text-field>
@@ -77,7 +77,7 @@ export default {
     return {
       dialog: false,
       editIdx: null,
-      role: {description:"", customerSegmentRef: ""}
+      role: {description:"", customerSegmentRef: "", keyPartnerRef: ""}
     }
   },
   mounted: function() {
