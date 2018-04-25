@@ -22,6 +22,7 @@
               </v-btn>
             </v-toolbar>
             <v-card-title primary-title>
+              <v-icon v-if="p.backLogItemId">fa-trello</v-icon>
               <div class="caption">{{p.description}}</div>
             </v-card-title>
           </v-card>
