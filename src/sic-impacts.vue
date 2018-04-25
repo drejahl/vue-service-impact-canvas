@@ -38,10 +38,14 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md8>
                 <v-text-field label="Name" required v-model="impact.name"></v-text-field>
+                <v-select :items="serviceImpactCanvas.barriers" v-model="impact.barrierRef"
+                  label="Impacted barriers" item-text="name" multiple chips item-value="id"></v-select>
+                <v-select v-if="serviceImpactCanvas.type==='standard'" :items="serviceImpactCanvas.accelerators" v-model="impact.acceleratorRef"
+                  label="Impacted accelerators" item-text="name" multiple chips item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select label="Type" multiple autocomplete chips v-model="impact.type"
-                  :items="['Technology', 'Sales', 'Marketing', 'Operations', 'Strategic']">
+                  :items="['Incremental', 'One Off']">
                 </v-select>
               </v-flex>
               <v-flex xs12 sm12 md12>
@@ -68,13 +72,14 @@ export default {
   components: {
   },
   props: {
-    'impacts': Array
+    'impacts': Array,
+    'serviceImpactCanvas': Object
   },
   data () {
     return {
       dialog: false,
       editIdx: null,
-      impact: {description:""}
+      impact:  {description:"", barrierRef: [], acceleratorRef: [], type: ""}
     }
   },
   mounted: function() {
@@ -87,7 +92,7 @@ export default {
       this.dialog=false;
     },
     create: function() {
-      this.impact = {};
+      this.impact = {description:"", barrierRef: [], acceleratorRef: [], type: ""};
       this.dialog=true;
     },
     edit: function(i) {

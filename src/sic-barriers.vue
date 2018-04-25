@@ -41,7 +41,7 @@
                 <v-select :items="serviceImpactCanvas.jobs" v-model="barrier.jobRef"
                   label="Affected Jobs" item-text="name" multiple chips item-value="id"></v-select>
               </v-flex>
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm12 md8>
                 <v-select label="Type" multiple autocomplete chips v-model="barrier.type"
                   :items="['Technology', 'Business Process', 'Legislation', 'Regulatory']">
                 </v-select>

@@ -17,18 +17,18 @@
                 <SicBarriers :barriers="canvas.barriers" :serviceImpactCanvas="canvas"/>
               </v-flex>
               <v-flex d-flex xs12>
-                <SicAmplifiers v-if="canvas.type==='standard'" :amplifiers="canvas.amplifiers"/>
-                <SicAccelerators v-if="canvas.type==='outcome'" :accelerators="canvas.accelerators"/>
+                <SicAmplifiers v-if="canvas.type==='outcome'" :amplifiers="canvas.amplifiers"/>
+                <SicAccelerators v-if="canvas.type==='standard'" :accelerators="canvas.accelerators" :serviceImpactCanvas="canvas"/>
               </v-flex>
             </v-layout>
           </v-flex>
         </v-layout>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
-        <SicImpacts :impacts="canvas.impacts"/>
+        <SicImpacts :impacts="canvas.impacts" :serviceImpactCanvas="canvas"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
-        <SicFeatures :features="canvas.features"/>
+        <SicFeatures :features="canvas.features" :serviceImpactCanvas="canvas"/>
       </v-flex>
     </v-layout>
   </v-container>
