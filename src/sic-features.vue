@@ -15,6 +15,9 @@
               <v-btn flat dark icon small style="margin-left: 0px;" @click.native.stop="edit(i)">
                 <v-icon size="16px">edit</v-icon>
               </v-btn>
+              <v-btn flat dark icon small style="margin-left: -5px;" @click.native.stop="viewCard(i)">
+                <v-icon v-if="p.backLogItemId" size="16px">fa-briefcase</v-icon>
+              </v-btn>
               <v-toolbar-title style="margin-left: 0px;" class="caption">{{p.name}}</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn flat dark icon small style="margin-right: 0px;" @click.native.stop="del(i)">
@@ -22,7 +25,6 @@
               </v-btn>
             </v-toolbar>
             <v-card-title primary-title>
-              <v-icon v-if="p.backLogItemId">fa-trello</v-icon>
               <div class="caption">{{p.description}}</div>
             </v-card-title>
           </v-card>
@@ -100,6 +102,9 @@ export default {
   mounted: function() {
   },
   methods: {
+    viewCard: function() {
+
+    },
     impactSelected: function(id) {
       var impact = R.find(R.propEq('id', id), this.serviceImpactCanvas.impacts);
       this.jobs = [];
