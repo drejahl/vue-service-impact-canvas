@@ -11,6 +11,7 @@
     "build": "rimraf ./dist && webpack --config ./webpack.config.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "ramda": "^0.25.0",
     "uuid": "^3.2.1",
     "vue": "^2.5.13",

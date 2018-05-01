@@ -69,12 +69,41 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="trelloDialog" persistent max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Backlog Item</span>
+        </v-card-title>
+        <v-card-text v-if="trelloCard && listLabels">
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field label="Name" required v-model="trelloCard.name"></v-text-field>
+                <v-text-field label="List" required v-model="trelloList.name"></v-text-field>
+                <v-text-field multi-line label="Description" v-model="trelloCard.desc"></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-select :items="listLabels" v-model="trelloCard.labels"
+                  label="Labels" item-text="name" multiple chips item-value="id"></v-select>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
+          <v-btn v-if="trelloCard" color="blue darken-1" flat :href="trelloCard.url" target="_blank">View in Trello</v-btn>
+          <v-btn disabled color="blue darken-1" flat @click.native="update">Update Trello</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
 import uuidv1 from 'uuid/v1';
 const R = require('ramda');
+import axios from 'axios';
 
 export default {
   name: 'SicFeatures',
@@ -87,7 +116,12 @@ export default {
   data () {
     return {
       dialog: false,
+      trelloDialog: false,
       editIdx: null,
+      trellokey: null,
+      trelloCard: null,
+      trelloList: null,
+      listLabels: [],
       feature: {
         type: "Job Story",
         description:"",
@@ -100,11 +134,9 @@ export default {
     }
   },
   mounted: function() {
+    this.trellokey = sessionStorage.getItem('trellotoken');
   },
   methods: {
-    viewCard: function() {
-
-    },
     impactSelected: function(id) {
       var impact = R.find(R.propEq('id', id), this.serviceImpactCanvas.impacts);
       this.jobs = [];
@@ -139,6 +171,7 @@ export default {
     },
     close: function() {
       this.dialog=false;
+      this.trelloDialog=false;
     },
     create: function() {
       this.feature = {
@@ -156,6 +189,43 @@ export default {
       this.impactSelected(this.feature.impactRef);
       this.editIdx = i;
       this.dialog=true;
+    },
+    viewCard: function(i) {
+      // [HACK] - THIS NEEDS TO BE MOVE INTO THE APPLICTION!!!
+      if (this.trellokey) {
+        let self=this;
+        self.feature =  Object.assign( {}, self.features[i]);
+        const trelloUrl = 'https://api.trello.com/1/cards/' + self.feature.backLogItemId + "?key=19f3b4741602fda8ca5c66eaf3142a71&token=" + self.trellokey;
+        axios.get(trelloUrl)
+        .then( function(response) {
+          self.trelloCard=response.data;
+          const listUrl = 'https://api.trello.com/1/lists/' + self.trelloCard.idList + "?key=19f3b4741602fda8ca5c66eaf3142a71&token=" + self.trellokey;
+          axios.get(listUrl)
+          .then( function(response) {
+            self.trelloList=response.data;
+          })
+          .catch( (error) => {
+            sessionStorage.removeItem("trellotoken");
+          });
+          const labelUrl = 'https://api.trello.com/1/boards/' + self.trelloCard.idBoard + "/labels?key=19f3b4741602fda8ca5c66eaf3142a71&token=" + self.trellokey;
+          axios.get(labelUrl)
+          .then( function(response) {
+            self.listLabels=response.data;
+          })
+          .catch( (error) => {
+            sessionStorage.removeItem("trellotoken");
+          });
+        })
+        .catch( (error) => {
+          sessionStorage.removeItem("trellotoken");
+        });
+        this.editIdx = i;
+        this.trelloDialog=true;
+      }
+    },
+    update: function(i) {
+      this.trelloDialog=false;
+      this.$emit('snack', 'Sorry, Trello update not yet implemented!')
     },
     save: function(i) {
       this.dialog=false;
