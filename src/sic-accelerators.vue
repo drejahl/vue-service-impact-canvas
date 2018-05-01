@@ -7,7 +7,7 @@
       </v-btn>
       <v-toolbar-title style="margin-left: 0px;" class="subheading">Accelerators</v-toolbar-title>
     </v-toolbar>
-    <v-layout row wrap>
+    <v-layout row wrap style="min-height: 50px;">
       <v-flex xs12 v-for="(p,i) in accelerators" :key="p.id">
         <v-card color="teal lighten-2" class="white--text">
           <v-toolbar flat color="teal lighten-1" dark height="20px">
