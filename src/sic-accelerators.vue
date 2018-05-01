@@ -1,6 +1,6 @@
 <template>
-  <v-card color="teal lighten-3">
-    <v-toolbar flat color="teal lighten-2" dark height="40px">
+  <v-card color="grey lighten-2">
+    <v-toolbar flat color="grey darken-1" dark height="40px">
       <!--v-toolbar-side-icon></v-toolbar-side-icon-->
       <v-btn icon style="margin-left: 0px;" @click.native.stop="create">
         <v-icon>add</v-icon>
@@ -9,8 +9,8 @@
     </v-toolbar>
     <v-layout row wrap>
       <v-flex xs12 v-for="(p,i) in accelerators" :key="p.id">
-        <v-card color="blue lighten-2" class="white--text">
-          <v-toolbar flat color="blue lighten-1" dark height="20px">
+        <v-card color="teal lighten-2" class="white--text">
+          <v-toolbar flat color="teal lighten-1" dark height="20px">
             <v-btn flat dark icon small style="margin-left: 0px;" @click.native.stop="edit(i)">
               <v-icon size="16px">edit</v-icon>
             </v-btn>
