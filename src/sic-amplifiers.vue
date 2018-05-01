@@ -74,7 +74,7 @@ export default {
     return {
       dialog: false,
       editIdx: null,
-      amplifier: {description:""}
+      amplifier: {description:"", type: []}
     }
   },
   mounted: function() {
@@ -87,7 +87,7 @@ export default {
       this.dialog=false;
     },
     create: function() {
-      this.amplifier = {};
+      this.amplifier = { type: [] };
       this.dialog=true;
     },
     edit: function(i) {

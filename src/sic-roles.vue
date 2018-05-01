@@ -43,8 +43,8 @@
                 </v-select>
                 <v-select v-if="businessModel && role.type==='Customer'" :items="businessModel.customerSegments" v-model="role.customerSegmentRef"
                   label="Customer Segment" item-text="name" item-value="id"></v-select>
-                  <v-select v-if="businessModel && role.type==='Partner'" :items="businessModel.keyPartners" v-model="role.keyPartnerRef"
-                    label="Key Partner" item-text="name" item-value="id"></v-select>
+                <v-select v-if="businessModel && role.type==='Partner'" :items="businessModel.keyPartners" v-model="role.keyPartnerRef"
+                  label="Key Partner" item-text="name" item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm12 md12>
                 <v-text-field multi-line label="Description" v-model="role.description"></v-text-field>
@@ -77,7 +77,7 @@ export default {
     return {
       dialog: false,
       editIdx: null,
-      role: {description:"", customerSegmentRef: "", keyPartnerRef: ""}
+      role: {description:"", customerSegmentRef: "", keyPartnerRef: "", type: []}
     }
   },
   mounted: function() {
@@ -90,7 +90,7 @@ export default {
       this.dialog=false;
     },
     create: function() {
-      this.role = {};
+      this.role = {description:"", customerSegmentRef: "", keyPartnerRef: "", type: []};
       this.dialog=true;
     },
     edit: function(i) {

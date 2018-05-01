@@ -28,7 +28,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-dialog v-model="dialog" persistent max-width="500px">
+    <v-dialog v-model="dialog" persistent max-width="800px">
       <v-card>
         <v-card-title>
           <span class="headline">Customer Job</span>
@@ -40,6 +40,8 @@
                 <v-text-field label="Name" required v-model="job.name"></v-text-field>
                 <v-select :items="serviceImpactCanvas.roles" v-model="job.roleRef"
                   label="Roles" item-text="name" multiple chips item-value="id"></v-select>
+                <v-select v-if="businessModel" :items="businessModel.keyActivities" v-model="job.keyActivityRef"
+                  label="Related key activity" item-text="name" item-value="id"></v-select>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select label="Type" multiple autocomplete v-model="job.type"
@@ -48,6 +50,9 @@
               </v-flex>
               <v-flex xs12 sm12 md12>
                 <v-text-field multi-line label="Description" v-model="job.description"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md12>
+                <v-text-field multi-line label="Intended outcome" v-model="job.outcome"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-text-field multi-line label="Success Criteria" v-model="job.successCriteria"></v-text-field>
@@ -74,13 +79,14 @@ export default {
   },
   props: {
     'jobs': Array,
-    'serviceImpactCanvas': Object
+    'serviceImpactCanvas': Object,
+    'businessModel': Object
   },
   data () {
     return {
       dialog: false,
       editIdx: null,
-      job: {description:""}
+      job: {description:"", outcome: "", type: [], keyActivityRef: "", roleRef: [] }
     }
   },
   mounted: function() {
@@ -93,7 +99,7 @@ export default {
       this.dialog=false;
     },
     create: function() {
-      this.job = {};
+      this.job = {description:"", outcome: "", type: [], keyActivityRef: "", roleRef: []};
       this.dialog=true;
     },
     edit: function(i) {

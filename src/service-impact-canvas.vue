@@ -6,7 +6,7 @@
         <SicCustomerVision v-if="canvas.type==='outcome'" :customerVision="canvas.customerVision"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
-        <SicJobs v-if="canvas.type==='standard'" :jobs="canvas.jobs" :serviceImpactCanvas="canvas"/>
+        <SicJobs v-if="canvas.type==='standard'" :jobs="canvas.jobs" :serviceImpactCanvas="canvas" :businessModel="businessModel"/>
         <SicExpectedOutcome v-if="canvas.type==='outcome'" :expectedOutcome="canvas.expectedOutcome"/>
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
