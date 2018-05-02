@@ -77,12 +77,16 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field label="Name" required v-model="trelloCard.name"></v-text-field>
-                <v-text-field label="List" required v-model="trelloList.name"></v-text-field>
-                <v-text-field multi-line label="Description" v-model="trelloCard.desc"></v-text-field>
+                <v-text-field label="Name" readonly v-model="trelloCard.name"></v-text-field>
+                <v-text-field v-if="feature.name != trelloCard.name" label="Name in Service Impact Canvas" error readonly v-model="feature.name"></v-text-field>
+                <v-text-field label="List" readonly v-model="trelloList.name"></v-text-field>
+                <v-text-field multi-line label="Description" readonly v-model="trelloCard.desc"></v-text-field>
+                <v-text-field v-if="feature.description != trelloCard.desc"  multi-line label="Description in Service Impact Canvas"
+                  error readonly v-model="feature.description">
+                </v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-select :items="listLabels" v-model="trelloCard.labels"
+                <v-select :items="listLabels" v-model="trelloCard.labels" readonly
                   label="Labels" item-text="name" multiple chips item-value="id"></v-select>
               </v-flex>
             </v-layout>
@@ -92,7 +96,8 @@
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
           <v-btn v-if="trelloCard" color="blue darken-1" flat :href="trelloCard.url" target="_blank">View in Trello</v-btn>
-          <v-btn disabled color="blue darken-1" flat @click.native="update">Update Trello</v-btn>
+          <v-btn :disabled="syncNotNeeded" color="blue darken-1" flat @click.native="updateTrello">SIC >> Trello</v-btn>
+          <v-btn :disabled="syncNotNeeded" color="blue darken-1" flat @click.native="updateSIC">Trello >> SIC</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -111,6 +116,13 @@ export default {
   props: {
     'features': Array,
     'serviceImpactCanvas': Object
+  },
+  computed: {
+    syncNotNeeded: function() {
+      return ( this.feature && this.trelloCard &&
+        this.feature.name === this.trelloCard.name &&
+        this.feature.description === this.trelloCard.desc)
+    }
   },
   data () {
     return {
@@ -222,9 +234,25 @@ export default {
         this.trelloDialog=true;
       }
     },
-    update: function(i) {
+    updateTrello: function() {
+      let self=this;
       this.trelloDialog=false;
-      this.$emit('snack', 'Sorry, Trello update not yet implemented!')
+      const labelUrl = 'https://api.trello.com/1/cards/' + self.trelloCard.id +
+        "?name=" + self.feature.name + "&desc=" + self.feature.description +
+        "&key=19f3b4741602fda8ca5c66eaf3142a71&token=" + self.trellokey;
+      axios.put(labelUrl)
+      .then( function(response) {
+        self.listLabels=response.data;
+      })
+      .catch( (error) => {
+        sessionStorage.removeItem("trellotoken");
+      });
+    },
+    updateSIC: function() {
+      this.trelloDialog=false;
+      this.feature.name = this.trelloCard.name;
+      this.feature.description = this.trelloCard.desc;
+      this.save();
     },
     save: function(i) {
       this.dialog=false;
