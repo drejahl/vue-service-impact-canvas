@@ -85,7 +85,7 @@ export default {
   font-weight: normal;
   margin-bottom: 5px;
   margin-right: 0px;
-  margin-left: 0px
+  margin-left: 0px;
 }
 .sic-card-chip {
   background-color: white;
