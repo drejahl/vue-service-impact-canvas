@@ -5,12 +5,12 @@
       <v-btn icon style="margin-left: 0px;" @click.native.stop="create">
         <v-icon>add</v-icon>
       </v-btn>
-      <v-toolbar-title style="margin-left: 0px;" class="subheading">Accelerators</v-toolbar-title>
+      <v-toolbar-title style="margin-left: 0px;" class="body-1">Accelerators</v-toolbar-title>
     </v-toolbar>
     <v-layout row wrap style="min-height: 50px;">
       <v-flex xs12 v-for="(p,i) in accelerators" :key="p.id">
-        <v-card color="teal lighten-2" class="white--text">
-          <v-toolbar flat color="teal lighten-1" dark height="20px">
+        <v-card color="indigo lighten-2" class="white--text">
+          <v-toolbar flat color="indigo lighten-1" dark height="20px">
             <v-btn flat dark icon small style="margin-left: 0px;" @click.native.stop="edit(i)">
               <v-icon size="16px">edit</v-icon>
             </v-btn>
