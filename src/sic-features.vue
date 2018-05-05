@@ -54,8 +54,8 @@
               <v-flex v-if="feature.type==='Job Story'" xs12 sm12 md12>
                 <v-select v-if="feature.type==='Job Story' && feature.impactRef!==''":items="jobs" v-model="feature.jobRef"
                   label="Job" item-text="name" item-value="id"></v-select>
-                <v-text-field label="When..." required v-model="feature.when"></v-text-field>
-                <v-text-field label="I want..." required v-model="feature.want"></v-text-field>
+                <v-text-field  multi-line label="When..." required v-model="feature.when"></v-text-field>
+                <v-text-field  multi-line label="I want..." required v-model="feature.want"></v-text-field>
                 <v-text-field  multi-line label="So I can..." v-model="feature.can"></v-text-field>
               </v-flex>
             </v-layout>
