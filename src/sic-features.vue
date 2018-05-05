@@ -17,13 +17,13 @@
             <v-btn flat dark icon small style="margin-left: -5px;" @click.native.stop="viewCard(i)">
               <v-icon v-if="p.backLogItemId" size="14px">fa-briefcase</v-icon>
             </v-btn>
-            <v-toolbar-title style="margin-left: 0px;" class="caption">{{p.name}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn flat dark icon small style="margin-right: 0px;" @click.native.stop="del(i)">
               <v-icon size="16px">clear</v-icon>
             </v-btn>
           </v-toolbar>
           <div class="sic-card-body">
+            <p class="sic-card-name">{{p.name}}</p>
             <p class="sic-card-text">{{p.description}}</p>
             <div v-if="p.type" class="sic-card-chip">{{p.type}}</div>
           </div>
