@@ -30,7 +30,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="dialog" persistent max-width="500px">
+    <v-dialog v-model="dialog" persistent max-width="700px">
       <v-card>
         <v-card-title>
           <span class="headline">Service Feature</span>
