@@ -34,7 +34,7 @@
       </v-flex>
       <v-flex d-flex xs12 sm6 md2>
         <SicFeatures :features="canvas.features" :serviceImpactCanvas="canvas" :editable="editable" :enableComments="enableComments"
-          @newFeatureRating="newFeatureRating" @newFeatureComment="newFeatureComment" @displayComments="displayComments"/>
+          @newFeatureRating="newFeatureRating" @newFeatureComment="newFeatureComment" @displayComments="displayComments" @navigate="navigate"/>
       </v-flex>
       <v-flex v-if="enableComments && comments" d-flex xs12 sm6 md2>
         <v-layout column style="max-height: 750px;overflow:scroll;">
@@ -174,6 +174,9 @@ export default {
     displayComments: function(e) {
       this.elementId = e.id;
       this.commentDialog = true;
+    },
+    navigate: function(e) {
+      this.$emit( "navigate", e);
     },
     closeModal: function() {
       this.commentDialog = false;
