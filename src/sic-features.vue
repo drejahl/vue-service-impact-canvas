@@ -23,7 +23,7 @@
             <v-btn v-if="enableComments && p.id" flat dark icon small style="margin-left: 0px;" @click.native.stop="$emit('newFeatureRating', p)">
               <ion-icon name="star-outline" style="font-size: 16px;margin-bottom: 3px;"></ion-icon>
             </v-btn>
-            <v-btn flat dark icon small style="margin-left: 0px;" @click.native.stop="$emit('navigate', p)">
+            <v-btn flat dark icon small style="margin-left: 0px;" @click.native.stop="$emit('navigate', { type: 'feature', obj: p })">
               <ion-icon name="compass" style="font-size: 16px;margin-bottom: 3px;"></ion-icon>
             </v-btn>
             <v-spacer></v-spacer>
